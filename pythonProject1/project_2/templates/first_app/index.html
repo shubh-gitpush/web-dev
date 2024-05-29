@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+
+    <meta charset="UTF-8">
+    <title>hello</title>
+    <link rel="stylesheet" href='{% static 'css/style.css' %}'/>
+</head>
+<body>
+<h1>this is a test page</h1>
+<h2>{{insert_index}}</h2>
+<!--inerst content is in views.py it will pass on to views.py to confirm that it has been sent-->
+<div class="djano">
+{% if records %}
+<!--    if records keyword present in dic-->
+<table>
+    <thead>
+    <th>site name</th>
+    <th> date</th>
+
+    </thead>
+    {% for acc in records %}
+<!--    for acc in records-->
+<tr>
+    <td>{{acc.name}}</td>
+    <td>{{acc.date}}</td>
+</tr>
+{% endfor %}
+<!--    end here-->
+</table>
+{% else %}
+<p>no record found</p>
+{% endif %}
+</div>
+</body>
+</html>
