@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'blog_app/base.html' %}
+{% block content %}
+
+    <h1>Add Image to Post</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload Image</button>
+    </form>
+

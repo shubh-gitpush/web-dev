@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+{% extends 'blog_app/base.html' %}
+{% block content %}
+<h1 class="posttitle loader">{{post.title}}</h1>
+{% if post.published_date %}
+<div class="date postdate">
+  {{post.published_date}}
+
+</div>
+{% else %}
+<a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">publish</a>
+{% endif %}
+<div class ='white'>
+<!-- <p class='postcontent'>{{post.text|safe|linebreaksbr}}</p> -->
+<br>
+{% if post.image %}
+  <img src="{{post.image.url}}" width="400" height="400" class="right-image"><br>
+{% endif %}
+{% if post.image2 %}
+    <img src="{{post.image2.url}}" width="400" height="400" class="left-image" ><br>
+
+  {% endif %}
+
+</br><!-- Add this line to display the image -->
+ <p class='postcontent'>{{ post.text|safe|linebreaksbr }}</p>
+    {% if post.video_file %}
+    <video controls width="600" height="300">
+    <source  src="{{post.video_file.url}}" type="video/mp4" >
+    </video>
+    <br>
+
+  {% endif %}
+
+    <p class='postcontent'>{{ post.text2|safe|linebreaksbr }}</p>
+ </div>
+
+{% if user.is_authenticated %}
+<!-- if user is authenticated -->
+<a class='btenbten-primary' href="{% url 'post_remove' pk=post.pk %}">
+<span class="fas fa-times"></span></a>
+<!-- for remove the post -->
+<a class='btenbten-primary' href="{% url 'post_edit' pk=post.pk %}">
+<span class="fas fa-pencil-alt"></span></a>
+<!-- for edit the post -->
+{% endif %}
+<hr>
+<img src="" alt="">
+<a class='btn btn-primary btn-comment' href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+<div class="container">
+  <h2>Comments</h2>
+  {% for comment in post.comments.all %}
+  <br>
+  {% if user.is_authenticated or comment.approved_comment %}
+  {{comment.created_date}}
+  {% if not comment.approved_comment %}
+  <a class='btn btn-primary' href="{% url 'comment_remove' pk=comment.pk %}"><span class='glyphicon-remove'></span>
+  </a>
+  <a class='btn btn-primary' href="{% url 'comment_approve' pk=comment.pk %}"><span class='glyphicon-ok'></span>
+  </a>
+  {% endif %}
+  <p>{{comment.text|safe|linebreaks}}</p>
+<!--  The safe filter tells Django to treat the text content as safe HTML and render it without escaping any HTML tags.-->
+  <p>posted by:{{reply.author}}</p>
+  {% for reply in comment.replies.all %}
+       <div class="reply">
+         <p>{{ reply.text }}</p>
+         <p>Replied by: {{ reply.author }}</p>
+         <p>Replied at: {{ reply.created_date }}</p>
+       </div>
+     {% empty %}
+       <p>No replies yet.</p>
+     {% endfor %}
+    <div class="reply mx-0">
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReply{{ comment.pk }}" aria-expanded="false" aria-controls="collapseReply{{ comment.pk }}">
+        reply
+      </button>
+      <div class="collapse" id="collapseReply{{ comment.pk }}">
+        <div class="card card-body">
+           <form method="POST" action="{% url 'reply_comment' pk=comment.pk %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="replyText{{ comment.pk }}">Post reply</label>
+          <textarea class="form-control" id="replyText{{ comment.pk }}" name="text" placeholder="Enter reply here"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+  <hr style="border-top: 2px solid black;">
+  {% endif %}
+  {% empty %}
+
+  <p>no comments</p>
+  {% endfor %}
+
+</div>
+{% endblock %}

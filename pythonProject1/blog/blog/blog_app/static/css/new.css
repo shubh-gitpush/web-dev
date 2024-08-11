@@ -1,0 +1,72 @@
+.loader{
+
+   font-weight: 600;
+  /* background: url("https://t3.ftcdn.net/jpg/01/04/61/96/360_F_104619688_UP27I7cxkZKuNZn9GxCLCj0TztesAyMV.jpg"); */
+ /* optional: adjust how the image is displayed */
+      /* You can also set other properties like background-repeat, background-position, etc. */
+
+}
+
+  .top-banner {
+      width: 100%;
+      background: url("/static/css/diary.avif") no-repeat center;
+      background-size: cover;
+      padding: 16.875rem 0 9.375rem;
+  }
+
+
+.centerstage{
+  margin-left: auto;
+  margin-right: auto;
+   background: url("/static/css/diary.avif") no-repeat center;
+  background-size: cover;
+  color: #ffffff
+}
+.techfont{
+  font-family: 'Russo One', sans-serif;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+
+}
+.white{
+  background-color: white;
+}
+.reply{
+padding-left:50px
+}
+/* padding helps to mae space between border and content */
+.postdate{
+  text-align: center;
+}
+
+.posttitle{
+  font-family: 'Russo One', sans-serif;
+  font-size: 3em;
+  text-align: center;
+}
+.postcontent{
+  font-family: 'Montserrat';
+  font-size: 1.5em;
+  background-color: black;
+    clear: both; /* Clear the floats to prevent overlapping with the images */
+
+}
+
+.right-image{
+
+float: right;
+margin-top: 30px;
+}
+.left-image{
+float: left;
+ margin: 10px;
+}
+.btn-comment{
+  position: absolute;
+  right: 0px;
+
+}
+
+.bigbrand{
+  font-size: 1.5em;
+}

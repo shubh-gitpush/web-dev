@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends 'blog_app/base.html' %}
+{% block content %}
+<div class="centerstage">
+  {% for post in post_list %}
+  <div class="post">
+        {% if post.image %}
+      <img src="{{ post.image.url }}" alt="{{ post.title }}" style="width: 150px; height: 150px;">
+    {% endif %}
+    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</h1>
+      <!-- if you click on that post title it will take you to post detail and its specific primary key -->
+    <div class="date">
+      <p>published on: {{post.published_date|date:"D M Y"}}</p>
+    </div>
+    <a href="{% url 'post_detail' pk=post.pk %}">comments : {{post.approved_comments.count}}</a>
+
+
+</div>
+{% endfor %}
+</div>
+{% endblock %}

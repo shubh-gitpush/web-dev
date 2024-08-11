@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends 'blog_app/base.html' %}
+{% block content %}
+<h1>New Post</h1>
+<form class="post-form" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+{{form.as_p}}
+        <button type="submit">Save</button>
+<!--<button type="submit" class= "save btn btn-default" name="button">save</button>-->
+
+</form>
+   <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var editor = new MediumEditor('.editable', {
+                toolbar: {
+                    buttons: [
+                        'bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'quote',
+                        'orderedlist', 'unorderedlist', 'justifyCenter', 'justifyLeft', 'justifyRight', 'justifyFull', 'image'
+                    ],
+                    static: true,
+                    align: 'center',
+                    sticky: true,
+                    updateOnEmptySelection: true
+                },
+                extensions: {
+                    imageDragging: {},
+                    insert: {
+                        // Configuration for insert plugin
+                        images: {
+                            fileUploadOptions: {
+                                url: '/path/to/upload', // Your image upload URL
+                                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                            }
+                        },
+                        embeds: {
+                            // Configuration for embeds
+                        }
+                    }
+                }
+            });
+
+            // Initialize insert plugin (if using medium-editor-insert-plugin)
+            $(function() {
+                $('.editable').mediumInsert({
+                    editor: editor,
+                    addons: {
+                        images: {
+                            fileUploadOptions: {
+                                url: '{{post.image2.url}}', // Your image upload URL
+                                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                            }
+                        },
+                        embeds: {
+                            // Configuration for embeds
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
